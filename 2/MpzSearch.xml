@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: helloworld.xml 51 2010-11-22 01:33:21Z chdemko $ -->
+<extension type="component" version="2.5.0" method="upgrade">
+
+	<name>MPZ Search</name>
+	<!-- The following elements are optional and free of formatting conttraints -->
+	<creationDate>February 2016</creationDate>
+	<author>Eugene D</author>
+	<authorEmail>help.kiev@gmail.com</authorEmail>
+	<authorUrl></authorUrl>
+	<copyright>Copyright Info</copyright>
+	<license>License Info</license>
+	<!--
+		С обновлением версии нужно обновлять имя файла в \admin\sql\updates\mysql\
+		номер версии будет записан в таблицу #__shemas
+	-->
+	<version>2.0.0</version>
+	<!-- The description is optional and defaults to the name -->
+	<description>Generates csv pricelist from database</description>
+
+
+	<install> <!-- Runs on install -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall> <!-- Runs on uninstall -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update> <!-- Runs on update; New in 2.5 -->
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<!-- Site Main File Copy Section -->
+	<!-- Note the folder attribute: This attribute describes the folder
+		to copy FROM in the package to install therefore files copied
+		in this section are copied from /site/ in the package -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>MpzSearchA.php</filename>
+		<filename>controller.php</filename>
+		<folder>views</folder>
+		<folder>models</folder>
+		<folder>language</folder>
+	</files>
+
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu>Price generator</menu>
+		<!-- Administration Main File Copy Section -->
+		<!-- Note the folder attribute: This attribute describes the folder
+			to copy FROM in the package to install therefore files copied
+			in this section are copied from /admin/ in the package -->
+		<files folder="admin">
+			<!-- Admin Main File Copy Section -->
+			<filename>index.html</filename>
+			<filename>MpzSearchA.php</filename>
+			<!-- SQL files section -->
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>models</folder>
+			<folder>language</folder>
+		</files>
+	</administration>
+
+</extension>
+

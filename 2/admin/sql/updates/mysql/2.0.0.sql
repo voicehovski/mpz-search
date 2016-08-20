@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS `#__MpzSearch`; CREATE TABLE `#__MpzSearch` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `filetype` varchar(25) NOT NULL,  `name` varchar(50) NOT NULL,   PRIMARY KEY  (`id`)) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8; INSERT INTO `#__MpzSearch` (`filetype`, `name`) VALUES	('.csv', 'Text'),	('.xls', 'MS excel'),	('.ods', 'OpenOffice');

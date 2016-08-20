@@ -1,0 +1,45 @@
+PriceGenerator - > MpzSearchA	в файлах и именах файлов и каталогов
+Generator2 - > MpzSearchB	в файлах и именах файлов и каталогов
+Убрать все комментарии //content /*content*/ <!--content-->
+
+get-help get-process -detailed|full
+get-command -verb|noun	"verb_or_noun"
+get-member
+set-location get- push- pop-
+get-childitem	-path path*?[] -recurse -force -exclude mask# All about filesystem ends with "item"
+Additional Disks	alias: env: function: variable:
+Common parameters	 WhatIf, Confirm, Verbose, Debug
+#All out-s conver object into text and out it behind the powershell
+out-host -paging
+out-file -filepath path -encoding unicode|utf8|ascii -append
+rename-item -path what_path to_name
+Copy-Item -Path C:\New.Directory -Destination C:\temp -Recurse -Force -Passthru
+Invoke-Item C:\WINDOWS #invokes program or associated application
+select-object sort- where- -property p1,p2... -descending
+foreach-object
+$var = cmdlt
+$var | cmdlt
+-literalpath	treat wildcards as regular chars ie []
+
+rename
+replace text
+remove
+
+PS D:\web\limpopo\mpz-search-component\2> Get-ChildItem -recurse -exclude *some_names_to_exclude* | rename-item -NewName {$_.name -replace 'what_regexp','to_string'}
+
+#Для каждого файла в дереве катлогов выводит его содержимое с заменой однострочного комментария на многострочный
+PS D:\web\limpopo\mpz-search-component\2\site> Get-ChildItem -recurse | Where-Object {!$_.psiscontainer} | ForEach-Object {$_ | get-content | foreach-object {$_ -replace '//.*','/*$1*/'}}
+
+#Исходные файлы окажутся пустыми, поскольку производтся перезапись файлов. Если добавить -append скрипт зациклится - видимо будет постоянно считывать добавленные им самим строки
+PS D:\web\limpopo\mpz-search-component\2\site> Get-ChildItem -recurse | Where-Object {!$_.psiscontainer} | (ForEach-Object {$_ | get-content | foreach-object {$_ -replace '//(.*)','/*$1*/'}) | out-file $_.fullname}
+
+Поиск строк в файлах с учётом регистра
+PS D:\web\limpopo\mpz-search-component\2\site> Get-ChildItem -recurse | Where-Object {!$_.psiscontainer} | foreach-object {$_ | get-content | where-object {$_ -cmatch 'pricegenerator'} }
+
+Замена строк в файлах через временные файлы
+Ищем
+PS D:\web\limpopo\mpz-search-component\2\site> Get-ChildItem -recurse | Where-Object {!$_.psiscontainer} | foreach-object {$_ | get-content | where-object {$_ -cmatch 'PriceGenerator '} }
+Создаём временные файлы
+PS D:\web\limpopo\mpz-search-component\2\site> Get-ChildItem -recurse | Where-Object {!$_.psiscontainer} | foreach-object {$_ | get-content | foreach-object {$_ -creplace 'PriceGenerator ','SearchA '} | out-file -filepath ($_.directoryname+ '\--' + $_) }
+Удяляем исходные и переименовывыаем временные
+PS D:\web\limpopo\mpz-search-component\2\site> Get-ChildItem -Recurse | where-object {!$_.psiscontainer -and ($_ -match'^--')} | move-item -destination {$_.directoryname + '\' + ($_ -replace '^--','')} -force

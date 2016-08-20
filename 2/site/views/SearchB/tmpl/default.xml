@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_MPZ_SEARCH_VIEW_SEARCH_B_TITLE">
+		<message>
+			<![CDATA[COM_MPZ_SEARCH_VIEW_SEARCH_B_DESC]]>
+		</message>
+	</layout>
+	<fields name="request">
+		<fieldset
+			name="request"
+			addfieldpath="/admin/components/com_mpzsearch/models/fields"
+		>
+			<field
+				name="id"
+				type="SearchB"
+				label="COM_MPZ_SEARCH_FIELD_FILETYPE_LABEL"
+				description="COM_MPZ_SEARCH2_FIELD_FILETYPE_DESC"
+				default="1"
+			/>
+		</fieldset>
+	</fields>
+</metadata>
